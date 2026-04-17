@@ -47,9 +47,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background-color: #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
 }
 
 main {
@@ -68,9 +65,17 @@ main {
     box-sizing: border-box;
   }
   
-  .content-container {
+  /* .content-container {
     width: calc(100% - 8rem);
-    /* height: 100%; */
     box-sizing: border-box;
-  }
+  } */
+}
+
+
+/* ============================== */
+/* reset css */
+/* ============================== */
+button {
+  padding: 0;
+  border: none;
 }

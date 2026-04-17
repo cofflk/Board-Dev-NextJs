@@ -1,11 +1,11 @@
 import type { NextConfig } from "next";
-
 import path, { resolve } from 'path';
 import { config } from 'dotenv';
 
+import { nextConfigImage as images } from '@/config/next-config-image';
 const isProd = process.env.NODE_ENV === 'production';
 
-console.log('process.cwd()', process.cwd())
+// console.log('process.cwd()', process.cwd())
 
 
 // 프로젝트경로/.env 를 사용할 경우
@@ -30,6 +30,18 @@ config({
 const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
+  reactCompiler: true,
+
+  // images,
+    // rewrites
+    async rewrites() {
+      return [
+        {
+          source: '/hub/:path*',
+          destination: `${process.env.NEXT_PUBLIC_HUB_URL}/:path*`
+        }
+      ]
+    },
 
   /**
    * https://nextjs.org/docs/app/api-reference/config/next-config-js/output

@@ -3,8 +3,6 @@
 - [프로젝트 구조](https://nextjs.org/docs/app/getting-started/project-structure)
 
 
-
-
 ```tsx
 ```
 
@@ -71,6 +69,38 @@ export default function NotFound() {
 =================================
 
 ##### 렌더링 검토
-https://github.com/welldone-software/why-did-you-render
+- nextjs: reactCompiler 사용
+  - https://nextjs.org/docs/app/api-reference/config/next-config-js/reactCompiler
+  - useMemo, useCallback, React.memo => 최적화 자동 적용
 
-pnpm add -D @welldone-software/why-did-you-render
+- @welldone-software/why-did-you-render, Million.js
+<!-- 
+- https://github.com/welldone-software/why-did-you-render
+- https://codesandbox.io/p/sandbox/why-did-you-render-nextjs-esmdk
+
+pnpm add -D @welldone-software/why-did-you-render 
+-->
+
+
+=================================
+
+##### 이미지 사용
+```js
+// next.config.js
+const nextConfig = {
+  images: {
+    domains: ['hub.haeahn.com'],
+  },
+
+  // 또는 
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'hub.haeahn.com',
+        pathname: '/Storage/**',
+      },
+    ],
+  },
+};
+```

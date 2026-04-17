@@ -1,4 +1,4 @@
-interface LogonUser {
+export interface LogonUser {
     EMP_NO: string;
     USER_ID: string;
     USER_NM: string;
@@ -35,7 +35,7 @@ interface LogonUser {
     ATTEND_TIME: string;
 }
 
-interface LogonUserResponse {
+export interface LogonUserResponse {
     success: boolean;
     message: string;
     description: string;

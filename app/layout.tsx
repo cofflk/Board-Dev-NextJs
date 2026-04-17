@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 // import { config, getValidation } from '@haeahn-design/core';
 import { config } from '@haeahn-design/core';
 
-import Header from '@/components/layout/header';
+import Header from '@/components/layout/header/header';
 import Navigation from '@/components/layout/navigation';
 
 // config({

@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 // logger
-import { logger, adminLogger } from '@/libs/logger';
+import { logger, adminLogger } from '@/logger';
 
 import { detectDevice } from './middleware/detectDevice'
 import { validateToken } from './middleware/validateToken'
@@ -18,9 +18,9 @@ export async function proxy(request: NextRequest) {
 
     const pathname = request.nextUrl.pathname;
 
-    if (process.env.NODE_ENV === 'development') {
-        return NextResponse.next();
-    }
+    // if (process.env.NODE_ENV === 'development') {
+    //     return NextResponse.next();
+    // }
 
     // 정적 파일, API 경로, /403 페이지는 미들웨어 검증 제외
     if (
@@ -44,33 +44,43 @@ export async function proxy(request: NextRequest) {
             return NextResponse.next();
     }
     
-    // // 2. 토큰 인증 (재발급 시 hac 쿠키가 붙은 NextResponse를 반환할 수 있음)
-    // const { success: authSuccess, empNo = '', roles = '', nextResponse: authNextResponse } = await validateToken(request);
+    // ================================
 
-    // if (!authSuccess) {
-    //     logger.warn({ category: 'middleware', location: 'proxy.ts', msg: 'token validation failed', pathname, empNo, roles });
-    //     return NextResponse.redirect(new URL(loginUrl, request.url));
-    // }
-    // logger.info({ category: 'middleware', location: 'proxy.ts', msg: 'token validation success', pathname, empNo, roles });
+    const host = request.headers.get('host');
+    console.log('host', host);
+    let hasDomain = false;
+    if (host === 'haeahn.com' || host?.endsWith('.haeahn.com')) hasDomain = true;
+    if (!hasDomain) {
+        return NextResponse.next();
+    }
 
-    // const continueResponse = authNextResponse ?? NextResponse.next();
-    // if (pathname.startsWith('/admin')) {
-    //     if (roles.includes('ROLE_SYS_ADMIN') || roles.includes('ROLE_BOARD_ADMIN')) {
-    //         adminLogger.info({ category: 'middleware', location: 'proxy.ts', msg: 'admin user access /admin page', pathname, empNo, roles });
-    //         return continueResponse;
-    //     }
-    //     else {
-    //         logger.warn({ category: 'middleware', location: 'proxy.ts', msg: 'user access denied', pathname, empNo, roles });
-    //         return NextResponse.redirect(new URL('/404', request.url));
-    //     }
-    // }
-    // else {
-    //     return NextResponse.redirect(new URL('/404', request.url));
-    // }    
+    // ================================
+
+    // 2. 토큰 인증 (재발급 시 hac 쿠키가 붙은 NextResponse를 반환할 수 있음)
+    const { success: authSuccess, empNo = '', roles = '', nextResponse: authNextResponse } = await validateToken(request);
+
+    if (!authSuccess) {
+        logger.warn({ category: 'middleware', location: 'proxy.ts', msg: 'token validation failed', pathname, empNo, roles });
+        return NextResponse.redirect(new URL(loginUrl, request.url));
+    }
+    logger.info({ category: 'middleware', location: 'proxy.ts', msg: 'token validation success', pathname, empNo, roles });
+
+    const continueResponse = authNextResponse ?? NextResponse.next();
+    if (pathname.startsWith('/admin')) {
+        if (roles.includes('ROLE_SYS_ADMIN') || roles.includes('ROLE_BOARD_ADMIN')) {
+            adminLogger.info({ category: 'middleware', location: 'proxy.ts', msg: 'admin user access /admin page', pathname, empNo, roles });
+            return continueResponse;
+        }
+        else {
+            logger.warn({ category: 'middleware', location: 'proxy.ts', msg: 'user access denied', pathname, empNo, roles });
+            return NextResponse.redirect(new URL('/404', request.url));
+        }
+    }
+    else {
+        return continueResponse;
+    }    
     // return continueResponse;
-
-
-    return NextResponse.next();
+    // return NextResponse.next();
 
     // return NextResponse.redirect(new URL('/403', request.url));
     // if (request.nextUrl.pathname.startsWith('/about')) {

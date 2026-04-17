@@ -1,0 +1,145 @@
+.avatarButtonContainer {
+    position: relative;
+    flex-shrink: 0;
+    min-width: 0;
+
+    .avatarButton {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        max-width: min(100%, 14rem);
+        padding: 0.25rem 0.625rem 0.25rem 0.25rem;
+        // border: 1px solid #d4d4d8;
+        border-radius: 9999px;
+        text-align: left;
+        // background: #fafafa;
+        background: transparent;
+        // box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+        cursor: pointer;
+        transition:
+            border-color 0.15s ease,
+            background-color 0.15s ease;
+
+        .avatarIcon {   
+            display: flex;
+            height: 2.5rem;           /* h-9 */
+            width: 2.5rem;            /* w-9 */                
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #d4d4d8;
+            border-radius: 9999px;     /* rounded-full */
+            overflow: hidden;
+            
+            .avatarIconImage {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .dropdownMenu {
+        position: absolute;
+        right: 0;
+        z-index: 50;
+        min-width: 11rem;
+        margin-top: 0.375rem;
+        padding: 0.25rem 0;
+        border: 1px solid #e4e4e7;
+        border-radius: 0.5rem;
+        background: #fff;
+        box-shadow:
+          0 10px 15px -3px rgb(0 0 0 / 10%),
+          0 4px 6px -4px rgb(0 0 0 / 10%);
+
+
+        .dropdownItem {
+            display: block;
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: none;
+            font-size: 0.875rem;
+            text-align: left;
+            background: transparent;
+            cursor: pointer;
+
+            &:hover {
+                background: #f4f4f5;
+            }
+        }
+    }
+
+    
+}
+
+// .avatarButtonContainer {
+//     .avatarButton {
+//         position: relative;
+//         flex-shrink: 0;
+
+        
+//         .avatarIcon {   
+//             display: flex;
+//             height: 2.25rem;           /* h-9 */
+//             width: 2.25rem;            /* w-9 */                
+//             align-items: center;
+//             justify-content: center;
+//             border-radius: 9999px;     /* rounded-full */
+            
+//             border: 1px solid #d4d4d8; /* border-zinc-300 */
+//             background: linear-gradient(
+//                 to bottom right,
+//                 #f4f4f5,                 /* from-zinc-100 */
+//                 #e4e4e7                  /* to-zinc-200 */
+//             );
+            
+//             font-size: 0.75rem;        /* text-xs */
+//             font-weight: 600;          /* font-semibold */
+//             color: #27272a;            /* text-zinc-800 */
+            
+//             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* shadow-sm */
+//             transition: all 0.2s ease;
+    
+
+  
+
+//             button {
+//                 width: 100%;
+//                 height: 100%;
+//                 display: flex;
+//                 align-items: center;
+//                 justify-content: center;
+//                 position: relative;
+//                 border-radius: 50%;
+//                 overflow: hidden;
+//                 // &:hover {
+//                 //     border-color: #a1a1aa;     /* hover:border-zinc-400 */
+//                 //     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* hover:shadow */
+//                 // }
+//             }
+
+//             .avatarIconImage {
+//                 width: 100%;
+//                 height: 100%;
+//                 object-fit: cover;
+//             }
+//         }
+    
+//         .dropdownMenu {
+//             position: absolute;
+//             right: 0;
+//             margin-top: 0.375rem;      /* mt-1.5 (6px) */
+//             min-width: 11rem;
+//             border-radius: 0.5rem;     /* rounded-lg */
+//             border: 1px solid #e4e4e7; /* border-zinc-200 */
+//             background-color: #ffffff; /* bg-white */
+//             padding-top: 0.25rem;      /* py-1 */
+//             padding-bottom: 0.25rem;
+//             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+//                         0 4px 6px -4px rgba(0, 0, 0, 0.1); /* shadow-lg */
+//         }
+        
+//     }
+    
+    
+// }

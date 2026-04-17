@@ -21,16 +21,15 @@ export const logonUserApi = createApi({
     // tagTypes: ['LogonUser'],
     endpoints: (builder) => ({
         // <응답타입, 요청 파라미터>
-      // getLogonUser: builder.query<any, string>({
-      getLogonUser: builder.query<LogonUserResponse, void>({
-        // query: () => `api/profile`,
+      // getLogonUser: builder.query<return type, request type>({
+      getLogonUser: builder.query<LogonUser | null, void>({
         // query: (name) => `logonUser/${name}`,
         query: () => ({
           url: 'api/profile',
           method: 'GET',
           // credentials: 'include',
         }),
-        transformResponse: (response: LogonUserResponse) => {
+        transformResponse: (response: LogonUserResponse): LogonUser | null => {
           if (response?.success) {
             return response.data; // 👈 data만 반환
           }
